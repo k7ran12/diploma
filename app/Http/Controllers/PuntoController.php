@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banda;
+use App\Models\Participant;
 use App\Models\Punto;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,7 @@ class PuntoController extends Controller
         $verificacion = $this->verificar($participante_id, $request);
 
         if ($verificacion) {
+            $this->configuracion_puntos($participante_id, $request->puntos, 'add');
             request()->validate(Punto::$rules);
             $punto = Punto::create([
                 'lugar_contacto' => $request->lugar_contacto,
@@ -59,10 +61,21 @@ class PuntoController extends Controller
 
             return redirect()->route('participant.show', ['event' => $evento_id, 'participant' => $participante_id])
                 ->with('success', 'Puntos agregado correctamente.');
+        } else {
+            return back()->withInput()->with(['msg' => 'Ya agregaste puntos a este usuario en esta banda el día de hoy']);
         }
-        else{
-            return back()->withInput()->with(['msg'=>'Ya agregaste puntos a este usuario en esta banda el día de hoy']);
+    }
+    public function configuracion_puntos($participante_id, $puntos, $tipo_add)
+    {
+        $participante = Participant::where('id', $participante_id)->first();
+        if ($tipo_add == 'add') {
+            $participante->cantidad_puntos += $puntos;
+            $participante->cantidad_contactos += 1;
+        } else {
+            $participante->cantidad_puntos -= $puntos;
+            $participante->cantidad_contactos -= 1;
         }
+        $participante->save();
     }
 
     public function verificar($participante_id, $datos)
@@ -102,11 +115,11 @@ class PuntoController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($evento, $participante, $id)
     {
         $punto = Punto::find($id);
-
-        return view('punto.edit', compact('punto'));
+        $bandas = Banda::all();
+        return view('punto.edit', compact('punto', 'bandas'));
     }
 
     /**
@@ -116,14 +129,18 @@ class PuntoController extends Controller
      * @param  Punto $punto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Punto $punto)
+    public function update($evento, $participante, Request $request, Punto $punto)
     {
         request()->validate(Punto::$rules);
 
+        $this->configuracion_puntos($participante, $punto->puntos, 'delete');
+        $this->configuracion_puntos($participante, $request->puntos, 'add');
+
         $punto->update($request->all());
 
-        return redirect()->route('puntos.index')
-            ->with('success', 'Punto updated successfully');
+
+        return redirect()->route('participant.show', ['event' => $evento, 'participant' => $participante])
+            ->with('success', 'Puntos editado correctamente.');
     }
 
     /**

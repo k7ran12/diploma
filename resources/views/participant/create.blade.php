@@ -11,6 +11,9 @@
         </div>
     @endif
     <section class="content container-fluid">
+        <div class="float-right">
+            <a class="btn btn-primary" href="{{ route('event.show', ['event' => Request()->event]) }}"><i class="fa-solid fa-backward"></i> Back</a>
+        </div>
         <div class="row">
             <div class="col-md-12">
 

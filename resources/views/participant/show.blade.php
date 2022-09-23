@@ -10,16 +10,19 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
+                        <div class="position-absolute top-0 start-0"">
+                            <a class="btn btn-primary" href="{{ route('event.show', Request()->event) }}"><i class="fa-solid fa-backward"></i> Atras</a>
+                        </div>
                         <div class="position-absolute top-0 end-0">
                             <a href="{{ route('puntos.create', ['event' => Request()->event, 'participant' => Request()->participant]) }}"
                                 class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ __('Create New') }}
+                                <i class="fa-solid fa-plus"></i> {{ __('Agregar Puntos') }}
                             </a>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <center>
-                                    <h3>Detalle de Sala</h3>
+                                    <h3>Detalle de Participante</h3>
                                 </center>
                             </div>
                             <div class="col-md-4">
@@ -78,16 +81,16 @@
                                                 <form
                                                     action="{{ route('puntos.destroy', ['event' => Request()->event, 'participant' => Request()->participant, 'punto' => $punto->id]) }}"
                                                     method="POST">
-                                                    <a class="btn btn-sm btn-primary "
-                                                        href="{{ route('puntos.show', ['event' => Request()->event, 'participant' => Request()->participant, 'punto' => $punto->id]) }}"><i
-                                                            class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <!--<a class="btn btn-sm btn-primary "
+                                                            href="{{ route('puntos.show', ['event' => Request()->event, 'participant' => Request()->participant, 'punto' => $punto->id]) }}"><i
+                                                                class="fa fa-fw fa-eye"></i> Show</a>-->
                                                     <a class="btn btn-sm btn-success"
                                                         href="{{ route('puntos.edit', ['event' => Request()->event, 'participant' => Request()->participant, 'punto' => $punto->id]) }}"><i
-                                                            class="fa fa-fw fa-edit"></i> Edit</a>
+                                                            class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fa fa-fw fa-trash"></i> Delete</button>
+                                                            class="fa fa-fw fa-trash"></i> Eliminar</button>
                                                 </form>
                                             </td>
                                         </tr>

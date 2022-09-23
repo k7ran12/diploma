@@ -45,9 +45,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        //Obtener los archivos de las imagenes
         $imagen_diploma = $request->file('fotos_diplomas');
         $imagen_descripcion = $request->file('fotos_descripcion');
 
+        //Validar si un evento hay eventos anteriores para ponerlo por defecto en inactivo
         $cantidad_evento = Event::all()->count();
         if($cantidad_evento > 0){
             $ultimo_evento = Event::all()->sortByDesc('created_at')->first();

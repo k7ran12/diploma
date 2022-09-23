@@ -49,34 +49,33 @@ class ParticipantController extends Controller
         request()->validate(Participant::$rules);
 
         $existencia_datos = Participant::where([
-            'nombre'=>$request->nombre,
-            'event_id'=>$request->event_id
+            'nombre' => $request->nombre,
+            'event_id' => $request->event_id
         ])->get();
 
-        if(count($existencia_datos) > 0)
-        {
+        if (count($existencia_datos) > 0) {
             //return back()->withInput();
-            return back()->withInput()->with(['msg'=>'El participante '.$request->nombre.' ya fue creado para este evento']);
-        }
-        else
-        {
+            return back()->withInput()->with(['msg' => 'El participante ' . $request->nombre . ' ya fue creado para este evento']);
+        } else {
             $participant = Participant::create([
                 'nombre' => $request->nombre,
                 'cantidad_puntos' => $request->cantidad_puntos,
                 'event_id' => $request->event_id,
             ]);
-            $punto = Punto::create([
-                'lugar_contacto' => $request->lugar_contacto,
-                'puntos' => $request->cantidad_puntos,
-                'participant_id' => $participant->id,
-                'fecha' => date("Y-m-d"),
-                'banda_id' => $request->select_banda
-            ]);
+
+            if ($participant) {
+                $punto = Punto::create([
+                    'lugar_contacto' => $request->lugar_contacto,
+                    'puntos' => $request->cantidad_puntos,
+                    'participant_id' => $participant->id,
+                    'fecha' => date("Y-m-d"),
+                    'banda_id' => $request->select_banda
+                ]);
+            }
 
             return redirect()->route('event.show', $request->event_id)
-            ->with('success', 'Participant created successfully.');
+                ->with('success', 'Participant created successfully.');
         }
-
     }
 
     /**
@@ -88,8 +87,8 @@ class ParticipantController extends Controller
     public function show($evento_id, $participante_id)
     {
         $participante = Participant::where('id', $participante_id)->first();
-        $puntos = Punto::with('bandas')->where('participant_id',$participante_id)->get();
-        return view('participant.show', compact('puntos','participante'));
+        $puntos = Punto::with('bandas')->where('participant_id', $participante_id)->get();
+        return view('participant.show', compact('puntos', 'participante'));
     }
 
     /**

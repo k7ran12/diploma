@@ -21,86 +21,82 @@
     <header>
         <img class="img-fluid w-100" src="{{ Vite::asset('resources/images/logo-and-s2.jpg') }}" alt="">
     </header>
-    <div class="container">
-        <section class="mb-3">
-            <div class="d-flex justify-content-center">
-                <div class="p-2 bd-highlight">
-                    <label>N° QSO: <span><strong>78.523</strong></span></label>
+    @if (!empty($evento->estado))
+        @if ($evento->estado == 2)
+            <div class="container">
+                <section class="mb-3">
+                    <div class="d-flex justify-content-center">
+                        <div class="p-2 bd-highlight">
+                            <label>N° QSO: <span><strong>78.523</strong></span></label>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <label>INDICATIVOS: <span><strong>16.523</strong></span></label>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <label>ENTIDADES: <span><strong>123</strong></span></label>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="p-2 bd-highlight">
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <button class="btn btn-secondary">BUSCAR INDICATIVO</button>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <div class="row justify-content-md-center bg-color py-3 px-3 mb-3">
+                    @if (!empty($evento->imagen_diploma_1))
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_1 }}"
+                                alt="">
+                        </div>
+                    @endif
+                    @if (!empty($evento->imagen_diploma_2))
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_2 }}"
+                                alt="">
+                        </div>
+                    @endif
+                    @if (!empty($evento->imagen_diploma_3))
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_3 }}"
+                                alt="">
+                        </div>
+                    @endif
+                    <div class="col-md-12 pt-3">
+                        {{ $evento->descripcion_actividad }}
+                        <!--<center><a href="">BASE DE DIPLOMA</a></center>-->
+                    </div>
                 </div>
-                <div class="p-2 bd-highlight">
-                    <label>INDICATIVOS: <span><strong>16.523</strong></span></label>
-                </div>
-                <div class="p-2 bd-highlight">
-                    <label>ENTIDADES: <span><strong>123</strong></span></label>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <div class="p-2 bd-highlight">
-                    <input type="text" class="form-control">
-                </div>
-                <div class="p-2 bd-highlight">
-                    <button class="btn btn-secondary">BUSCAR INDICATIVO</button>
-                </div>
-            </div>
-        </section>
-        <hr>
-        <div class="row justify-content-md-center bg-color py-3 px-3 mb-3">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <img class="img-fluid" style="width:100%" src="{{ Vite::asset('resources/images/bronce_p.jpg') }}" alt="">
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <img class="img-fluid" style="width:100%" src="{{ Vite::asset('resources/images/bronce_p.jpg') }}" alt="">
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <img class="img-fluid" style="width:100%" src="{{ Vite::asset('resources/images/bronce_p.jpg') }}" alt="">
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <img class="img-fluid" style="width:100%" src="{{ Vite::asset('resources/images/bronce_p.jpg') }}" alt="">
-            </div>
-            <div class="col-md-12 pt-3">
-                <p>Para conmemorar el cuarenta y dos aniversario del día de Andalucía, el Consejo Territorial de URE en Andalucía (URAN), pondrá en el aire el “I Diploma día de Andalucía”.</p>
-                <p>Radioaficionados de toda la comunidad autónoma, otorgaran un indicativo especial, según la provincia de residencia. Entregando un diploma según los contactos realizados. Y como todos los años, se activara una estación especial en la sede del Parlamento Andaluz, el día 28 de febrero, durante solemnes actos que se realizan en dicha ubicación.</p>
-                <p>Los indicativos especiales serán: <strong>AM42AL, AM42CA, AM42CO, AM42GR, AM42HU, AM42JA, AM42MA, AM42SE y AM42AND</strong>.</p>
-                <center><a href="">BASE DE DIPLOMA</a></center>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-3">
-                <center><label>RANKING TOP 100</label></center>
-                <table class="table table-primary table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>INDICATIVO</th>
-                            <th>SLOTS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>QWERTY</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>QWERTY</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>QWERTY</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>QWERTY</td>
-                            <td>123</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-3">
+                <hr>
+                <div class="row">
+                    <div class="col-md-3 mx-auto">
+                        <center><label>RANKING TOP</label></center>
+                        <table class="table table-primary table-striped mt-3">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Usuario</th>
+                                    <th>Contactos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $i = 1;
+                                @endphp
+                                @foreach ($puntos as $punto)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td><a href="{{ route('home.search', $punto->participante) }}">{{ $punto->participante }}</a></td>
+                                        <td>{{ $punto->total_contactos }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--<div class="col-md-3">
                 <center><label>TOP 100 SSB</label></center>
                 <table class="table table-primary table-striped mt-3">
                     <thead>
@@ -201,23 +197,33 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>-->
+                </div>
             </div>
+        @else
+            <div class="alert alert-secondary" role="alert">
+                No tiene eventos activos
+            </div>
+        @endif
+    @else
+        <div class="alert alert-secondary" role="alert">
+            No tiene eventos activos
         </div>
-    </div>
+    @endif
     <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center" bis_skin_checked="1">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <i class="fa-solid fa-code"></i>
-          </a>
-          <span class="mb-3 mb-md-0 text-muted">© 2022 krenti</span>
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <i class="fa-solid fa-code"></i>
+            </a>
+            <span class="mb-3 mb-md-0 text-muted">© 2022 krenti</span>
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-twitter h3"></i></a></li>
-          <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-instagram h3"></i></a></li>
-          <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-facebook h3"></i></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-twitter h3"></i></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-instagram h3"></i></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-facebook h3"></i></a></li>
         </ul>
-      </footer>
+    </footer>
 </body>
 
 </html>

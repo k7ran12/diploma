@@ -15,7 +15,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="float-end">
+                        <div class="position-absolute top-0 start-0"">
+                            <a class="btn btn-primary" href="{{ route('event.index') }}"><i class="fa-solid fa-backward"></i> Atras</a>
+                        </div>
+                        <div class="position-absolute top-0 end-0">
                             <a href="{{ route('participant.create', Request()->event) }}"
                                 class="btn btn-primary btn-sm float-right" data-placement="left">
                                 {{ __('Crear Participante') }}
@@ -58,7 +61,7 @@
                             <h5><strong>Participantes</strong></h5>
                         </center>
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover w-50 mx-auto">
+                            <table class="table table-striped table-hover w-75 mx-auto">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
@@ -67,7 +70,7 @@
                                             Nombre
                                         </th>
                                         <th>Cantidad Puntos</th>
-
+                                        <th>Cantidad Contactos</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -82,6 +85,7 @@
                                                 <td>{{ ++$cantidad }}</td>
                                                 <td>{{ $participant->nombre }}</td>
                                                 <td>{{ $participant->cantidad_puntos }}</td>
+                                                <td>{{ $participant->cantidad_contactos }}</td>
 
                                                 <td>
                                                     <form
@@ -89,14 +93,14 @@
                                                         method="POST">
                                                         <a class="btn btn-sm btn-primary "
                                                             href="{{ route('participant.show', ['event' => Request()->event, 'participant' => $participant->id]) }}"><i
-                                                                class="fa fa-fw fa-eye"></i> Show</a>
+                                                                class="fa fa-fw fa-eye"></i> Detalle Puntos</a>
                                                         <a class="btn btn-sm btn-success"
                                                             href="{{ route('participant.edit', ['event' => Request()->event, 'participant' => $participant->id]) }}"><i
-                                                                class="fa fa-fw fa-edit"></i> Edit</a>
+                                                                class="fa fa-fw fa-edit"></i> Editar</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"><i
-                                                                class="fa fa-fw fa-trash"></i> Delete</button>
+                                                                class="fa fa-fw fa-trash"></i> Eliminar</button>
                                                     </form>
                                                 </td>
                                             </tr>

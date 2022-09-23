@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
                             <strong>Lugar Contacto:</strong>
                             {{ $punto->lugar_contacto }}

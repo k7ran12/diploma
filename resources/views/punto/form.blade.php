@@ -22,7 +22,7 @@
                     <select name="banda_id" class="form-select" aria-label="Default select example">
                         <option>Elija un banda</option>
                         @foreach ($bandas as $banda)
-                            <option value="{{$banda->id}}" @if($banda->id == old('banda_id')) selected @endif>{{ $banda->nombre_banda }}</option>
+                            <option value="{{$banda->id}}" @if($banda->id == old('banda_id') || $banda->id == $punto->banda_id) selected  @endif>{{ $banda->nombre_banda }}</option>
                         @endforeach
                     </select>
             </div>
