@@ -12,3 +12,8 @@ thead > tr:first-child > th {
 td:first-child {
     background-color: #4C91DC !important;
 }
+.contenedor_imagenes{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}

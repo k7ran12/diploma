@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\ParticipantController;
+use App\Http\Controllers\PuntoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +24,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/event', EventController::class)->middleware('auth');
+Route::resource('event/{event}/participant', ParticipantController::class)->middleware('auth');
+Route::resource('event/{event}/participant/{participant}/puntos', PuntoController::class);
+Route::resource('/imagen', ImagenController::class)->middleware('auth');
+
