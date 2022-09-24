@@ -9,7 +9,7 @@ class Add extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['participante', 'banda_id', 'puntos', 'fecha'];
+    protected $fillable = ['participante', 'banda_id', 'puntos', 'fecha', 'modo'];
 
     public function bandas()
     {

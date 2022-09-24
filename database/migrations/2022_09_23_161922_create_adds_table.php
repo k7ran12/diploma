@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('puntos');
             $table->date('fecha');
             $table->integer('contacto')->default(1);
+            $table->char('modo',5);
             $table->timestamps();
         });
     }

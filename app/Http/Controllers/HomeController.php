@@ -7,6 +7,7 @@ use App\Models\Evento;
 use App\Models\Eventos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class HomeController extends Controller
 {
@@ -17,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->only('index', 'store');
     }
 
     /**
@@ -98,7 +99,7 @@ class HomeController extends Controller
         return back()->withInput()->with(['msg' => 'Se guardo correctamente']);
     }
 
-    public function search($participante)
+    public function search($participante, $top)
     {
         //INformacion General
         $contactos = DB::table('Adds')
@@ -110,9 +111,42 @@ class HomeController extends Controller
             ->orderByDesc('total_contactos')
             ->first();
         //
+        if($top == 'general')
+        {
+            $puntos = Add::with('bandas')->where('participante', $participante)->get();
+        }
+        else if($top == 'fonia')
+        {
+            $puntos = Add::with('bandas')->where(['participante'=> $participante, 'modo'=> 'SSB'])->get();
+        }
+        else if($top == 'ft8')
+        {
+            $puntos = Add::with('bandas')->where(['participante'=> $participante, 'modo'=> 'FT8'])->get();
+        }
 
-        $puntos = Add::with('bandas')->where('participante', $participante)->get();
         $evento = Evento::first();
         return view('usuarios.index', compact('puntos', 'evento', 'contactos', 'indicadores'));
+    }
+
+    public function diploma_pdf($usuario, $tipo_diploma)
+    {
+        $imagen = '';
+        $evento = Evento::first();
+        if($tipo_diploma == 'imagen_diploma_1')
+        {
+            $imagen = $evento->imagen_diploma_1;
+        }
+        if($tipo_diploma == 'imagen_diploma_2')
+        {
+            $imagen = $evento->imagen_diploma_2;
+        }
+        if($tipo_diploma == 'imagen_diploma_3')
+        {
+            $imagen = $evento->imagen_diploma_3;
+        }
+
+        $pdf = PDF::loadView('usuarios.diploma', compact('imagen', 'usuario'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->download('pruebapdf.pdf');
     }
 }

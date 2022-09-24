@@ -33,7 +33,7 @@
                 <h4>N° QSO´s PARA {{ Request()->usuario }} : {{ count($puntos) }} </h4>
             </div>
         </div>
-        <a href="../" class="btn btn-primary my-3 mx-auto d-block w-25">NUEVA BUSQUEDA</a>
+        <a href="../../" class="btn btn-primary my-3 mx-auto d-block w-25">NUEVA BUSQUEDA</a>
         <div class="row">
             @if(!empty($evento->imagen_diploma_1))
             <div class="col-md-4">
@@ -42,8 +42,8 @@
                         <h4 class="card-title">Diploma</h4>
                     </div>
                     <div class="card-body">
-                        <img class="rounded mx-auto d-block" src="../{{ $evento->imagen_diploma_1 }}" alt="">
-                        <button class="btn btn-primary mx-auto d-block mt-3">Descargar</button>
+                        <img class="rounded mx-auto d-block w-100" src="{{ Vite::asset('public/'.$evento->imagen_diploma_1.'') }}" alt="">
+                        <a href="{{ route('diploma_pdf.get', ['usuario'=> Request()->usuario, 'tipo_diploma'=> 'imagen_diploma_1']) }}" class="btn btn-primary mx-auto d-block mt-3">Descargar</a>
                     </div>
                 </card>
             </div>
@@ -55,8 +55,8 @@
                         <h4 class="card-title">Diploma</h4>
                     </div>
                     <div class="card-body">
-                        <img class="rounded mx-auto d-block" src="../{{ $evento->imagen_diploma_2 }}" alt="">
-                        <button class="btn btn-primary mx-auto d-block mt-3">Descargar</button>
+                        <img class="rounded mx-auto d-block w-100" src="{{ Vite::asset('public/'.$evento->imagen_diploma_2.'') }}" alt="">
+                        <a href="{{ route('diploma_pdf.get', ['usuario'=> Request()->usuario, 'tipo_diploma'=> 'imagen_diploma_2']) }}" class="btn btn-primary mx-auto d-block mt-3">Descargar</a>
                     </div>
                 </card>
             </div>
@@ -68,8 +68,8 @@
                         <h4 class="card-title">Diploma</h4>
                     </div>
                     <div class="card-body">
-                        <img class="rounded mx-auto d-block" src="../{{ $evento->imagen_diploma_3 }}" alt="">
-                        <button class="btn btn-primary mx-auto d-block mt-3">Descargar</button>
+                        <img class="rounded mx-auto d-block w-100" src="{{ Vite::asset('public/'.$evento->imagen_diploma_3.'') }}" alt="">
+                        <a href="{{ route('diploma_pdf.get', ['usuario'=> Request()->usuario, 'tipo_diploma'=> 'imagen_diploma_3']) }}" class="btn btn-primary mx-auto d-block mt-3">Descargar</a>
                     </div>
                 </card>
             </div>
@@ -87,6 +87,7 @@
                             <th>Usuario</th>
                             <th>Banda</th>
                             <th>Fecha</th>
+                            <th>Modo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,6 +100,7 @@
                             <td>{{ $punto->participante }}</td>
                             <td>{{ $punto->bandas->nombre_banda }}</td>
                             <td>{{ $punto->fecha }}</td>
+                            <td>{{ $punto->modo }}</td>
                         </tr>
                         @endforeach
                     </tbody>

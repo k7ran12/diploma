@@ -21,7 +21,7 @@
 
                 @includeif('partials.errors')
 
-                <div class="card card-default w-25 mx-auto">
+                <div class="card card-default w-50 mx-auto">
                     <div class="card-header">
                         <span class="card-title">Agregar Puntos</span>
                     </div>

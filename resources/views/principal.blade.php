@@ -22,81 +22,135 @@
         <img class="img-fluid w-100" src="{{ Vite::asset('resources/images/logo-and-s2.jpg') }}" alt="">
     </header>
     @if (!empty($evento->estado))
-        @if ($evento->estado == 2)
-            <div class="container">
-                <section class="mb-3">
-                    <div class="d-flex justify-content-center">
-                        <div class="p-2 bd-highlight">
-                            <label>N° QSO: <span><strong>78.523</strong></span></label>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            <label>INDICATIVOS: <span><strong>16.523</strong></span></label>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            <label>ENTIDADES: <span><strong>123</strong></span></label>
-                        </div>
+    @if ($evento->estado == 2)
+    <div class="container">
+        <section class="mb-3">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-6 mx-auto bg-primary text-white rounded p-2">
+                    <h1>N° QSO : {{ $contactos->total_contactos }} | INDICATIVO
+                        {{ $indicadores->total_contactos }} </h1>
+                </div>
+            </div>
+            <form action="{{ route('principal.search') }}" method="get">
+                <div class="d-flex justify-content-center">
+
+                    <div class="p-2 bd-highlight">
+                        <input name="buscar" type="text" class="form-control">
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="p-2 bd-highlight">
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            <button class="btn btn-secondary">BUSCAR INDICATIVO</button>
-                        </div>
-                    </div>
-                </section>
-                <hr>
-                <div class="row justify-content-md-center bg-color py-3 px-3 mb-3">
-                    @if (!empty($evento->imagen_diploma_1))
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_1 }}"
-                                alt="">
-                        </div>
-                    @endif
-                    @if (!empty($evento->imagen_diploma_2))
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_2 }}"
-                                alt="">
-                        </div>
-                    @endif
-                    @if (!empty($evento->imagen_diploma_3))
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_3 }}"
-                                alt="">
-                        </div>
-                    @endif
-                    <div class="col-md-12 pt-3">
-                        {{ $evento->descripcion_actividad }}
-                        <!--<center><a href="">BASE DE DIPLOMA</a></center>-->
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-secondary">BUSCAR INDICATIVO</button>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3 mx-auto">
-                        <center><label>RANKING TOP</label></center>
-                        <table class="table table-primary table-striped mt-3">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Usuario</th>
-                                    <th>Contactos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $i = 1;
-                                @endphp
-                                @foreach ($puntos as $punto)
-                                    <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td><a href="{{ route('home.search', $punto->participante) }}">{{ $punto->participante }}</a></td>
-                                        <td>{{ $punto->total_contactos }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!--<div class="col-md-3">
+            </form>
+        </section>
+        <hr>
+        <div class="row justify-content-md-center bg-color py-3 px-3 mb-3">
+            @if (!empty($evento->imagen_diploma_1))
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_1 }}" alt="">
+            </div>
+            @endif
+            @if (!empty($evento->imagen_diploma_2))
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_2 }}" alt="">
+            </div>
+            @endif
+            @if (!empty($evento->imagen_diploma_3))
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_3 }}" alt="">
+            </div>
+            @endif
+            <div class="col-md-12 pt-3">
+                {{ $evento->descripcion_actividad }}
+                <!--<center><a href="">BASE DE DIPLOMA</a></center>-->
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3 mx-auto">
+                <center><label>TOP GENERAL</label></center>
+                <table class="table table-primary table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Usuario</th>
+                            <th>Contactos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $i = 1;
+                        @endphp
+                        @foreach ($puntos as $punto)
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td><a
+                                    href="{{ route('indicativo.search', ['usuario'=>$punto->participante, 'top'=> 'general']) }}">{{
+                                    $punto->participante }}</a>
+                            </td>
+                            <td>{{ $punto->total_contactos }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <center><label>TOP 100 FONIA</label></center>
+                <table class="table table-primary table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Usuario</th>
+                            <th>Contactos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $i = 1;
+                        @endphp
+                        @foreach ($fonia as $fon)
+                        <tr>
+                            <td>{{ $i }}</td>
+                            <td>
+                                <a
+                                    href="{{ route('indicativo.search', ['usuario'=>$fon->participante , 'top'=> 'fonia']) }}">{{
+                                    $fon->participante }}</a>
+                            </td>
+                            <td>{{ $fon->cantidad }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <center><label>TOP 100 FT8</label></center>
+                <table class="table table-primary table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Usuario</th>
+                            <th>Contactos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $i = 1;
+                        @endphp
+                        @foreach ($ft8 as $fon)
+                        <tr>
+                            <td>{{ $i }}</td>
+                            <td>
+                                <a
+                                    href="{{ route('indicativo.search', ['usuario'=>$fon->participante , 'top'=> 'ft8']) }}">{{
+                                    $fon->participante }}</a>
+                            </td>
+                            <td>{{ $fon->cantidad }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!--<div class="col-md-3">
                 <center><label>TOP 100 SSB</label></center>
                 <table class="table table-primary table-striped mt-3">
                     <thead>
@@ -198,17 +252,17 @@
                     </tbody>
                 </table>
             </div>-->
-                </div>
-            </div>
-        @else
-            <div class="alert alert-secondary" role="alert">
-                No tiene eventos activos
-            </div>
-        @endif
-    @else
-        <div class="alert alert-secondary" role="alert">
-            No tiene eventos activos
         </div>
+    </div>
+    @else
+    <div class="alert alert-secondary" role="alert">
+        No tiene eventos activos
+    </div>
+    @endif
+    @else
+    <div class="alert alert-secondary" role="alert">
+        No tiene eventos activos
+    </div>
     @endif
     <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center" bis_skin_checked="1">

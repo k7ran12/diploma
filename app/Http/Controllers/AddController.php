@@ -45,6 +45,7 @@ class AddController extends Controller
                 'banda_id' => $request->banda_id,
                 'puntos' => $request->puntos,
                 'fecha' => date('Y-m-d'),
+                'modo' => $request->modo
             ]);
             return back()->withInput()->with(['msg' => 'Fue agregado correctamente']);
         }
@@ -60,7 +61,8 @@ class AddController extends Controller
         $resultado = Add::where([
             'fecha' => $fecha_hoy,
             'participante' => $datos->participante,
-            'banda_id' => $datos->banda_id
+            'banda_id' => $datos->banda_id,
+            'modo' => $datos->modo
         ])->get();
 
         //dd(count($resultado));

@@ -22,6 +22,14 @@
                     <input type="text" name="puntos" id="puntos" class="form-control">
                 </div>
             </div>
+            <div class="col-md-12">
+                <label>Banda</label>
+                <select required name="modo" class="form-select" aria-label="Default select example">
+                    <option>Elija un banda</option>
+                    <option value="SSB">SSB</option>
+                    <option value="FT8">FT8</option>
+                </select>
+            </div>
         </div>
     </div>
     <div class="box-footer mt-3">
