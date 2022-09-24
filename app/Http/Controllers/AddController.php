@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class AddController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        //$this->middleware('auth')->only('index', 'store');
+        //$this->middleware(['role:usuario', 'role:admin']);
+        $this->middleware(['role:admin|usuario']);
+    }
+
     public function index()
     {
         $bandas = Banda::all();

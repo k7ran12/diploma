@@ -5,6 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PuntoController;
+use App\Http\Controllers\UsuarioController;
 use App\Models\Add;
 use App\Models\Evento;
 use GuzzleHttp\Psr7\Request;
@@ -97,3 +98,4 @@ Route::resource('event/{event}/participant', ParticipantController::class)->midd
 Route::resource('event/{event}/participant/{participant}/puntos', PuntoController::class);
 Route::resource('/imagen', ImagenController::class)->middleware('auth');*/
 Route::resource('/add', AddController::class);
+Route::resource('/admin', UsuarioController::class);

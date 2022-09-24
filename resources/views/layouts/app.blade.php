@@ -18,6 +18,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/6.4.3/imask.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -43,21 +44,16 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
-                            <li class="nav-item">
+                            @role('admin')
+                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}">Inicio</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.index') }}">Usuarios</a>
+                            </li>
+                            @endrole
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('add.index') }}">Puntos</a>
                             </li>
@@ -89,6 +85,8 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    @yield('javascript')
 </body>
 
 </html>

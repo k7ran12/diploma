@@ -19,16 +19,17 @@
 
 <body>
     <header>
-        <img class="img-fluid w-100" src="{{ Vite::asset('resources/images/logo-and-s2.jpg') }}" alt="">
+        <img class="img-fluid w-100" src="{{ Vite::asset('resources/images/bannerweb1.jpg') }}" alt="">
     </header>
     @if (!empty($evento->estado))
     @if ($evento->estado == 2)
     <div class="container">
-        <section class="mb-3">
+        <section class="my-3">
             <div class="d-flex justify-content-center">
                 <div class="col-md-6 mx-auto bg-primary text-white rounded p-2">
-                    <h1>N° QSO : {{ $contactos->total_contactos }} | INDICATIVO
-                        {{ $indicadores->total_contactos }} </h1>
+                    <h1 style="color: white !important">N° QSO : {{ !empty($contactos->total_contactos) ? $contactos->total_contactos : 0 }} |
+                        INDICATIVO
+                        {{ !empty($indicadores->total_contactos) ? $indicadores->total_contactos : 0 }} </h1>
                 </div>
             </div>
             <form action="{{ route('principal.search') }}" method="get">
@@ -60,93 +61,110 @@
                 <img class="img-fluid" style="width:100%" src="{{ $evento->imagen_diploma_3 }}" alt="">
             </div>
             @endif
+
             <div class="col-md-12 pt-3">
-                {{ $evento->descripcion_actividad }}
+                {!! $evento->descripcion_actividad !!}
                 <!--<center><a href="">BASE DE DIPLOMA</a></center>-->
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-md-3 mx-auto">
-                <center><label>TOP GENERAL</label></center>
-                <table class="table table-primary table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Usuario</th>
-                            <th>Contactos</th>
-                        </tr>
-                    </thead>
+                <div class="d-block mx-auto mt-3" id="micss11" bis_skin_checked="1"><center>TOP GENERAL</center></div>
+                <table style="width: 100%;" id="micss9" border="2" bordercolor="#000000">
                     <tbody>
+                        <tr>
+                            <td width="30" align="center" bgcolor="#4C91DC" id="micss6">
+                                <div id="micss7" bis_skin_checked="1">#</div>
+                            </td>
+                            <td width="90" align="left" id="micss6" bgcolor="#4C91DC">
+                                <div id="micss7" bis_skin_checked="1">&nbsp;&nbsp;INDICATIVO</div>
+                            </td>
+                            <td width="60" align="center" bgcolor="#4C91DC" id="micss6">
+                                <div id="micss7" bis_skin_checked="1">CONTACTOS</div>
+                            </td>
+                        </tr>
                         @php
-                        $i = 1;
+                        $i = 0;
                         @endphp
                         @foreach ($puntos as $punto)
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td><a
-                                    href="{{ route('indicativo.search', ['usuario'=>$punto->participante, 'top'=> 'general']) }}">{{
-                                    $punto->participante }}</a>
+                        <tr align="center" bgcolor="#ECF5FF">
+                            <td id="micss6" bgcolor="#4C91DC">
+                                <div id="micss7" bis_skin_checked="1">{{++$i}}</div>
                             </td>
-                            <td>{{ $punto->total_contactos }}</td>
+                            <td align="left" id="micss6">&nbsp;<a
+                                href="{{ route('indicativo.search', ['usuario' => $punto->participante, 'top' => 'general']) }}">{{
+                                $punto->participante }}</a></td>
+                            <td id="micss6"><b>{{ $punto->total_contactos }}</b></td>
                         </tr>
                         @endforeach
+
                     </tbody>
                 </table>
             </div>
             <div class="col-md-3 mx-auto">
-                <center><label>TOP 100 FONIA</label></center>
-                <table class="table table-primary table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Usuario</th>
-                            <th>Contactos</th>
-                        </tr>
-                    </thead>
+                <div class="d-block mx-auto mt-3" id="micss11" bis_skin_checked="1"><center>TOP 100 FONIA</center></div>
+                <table style="width: 100%;" id="micss9" border="2" bordercolor="#000000">
                     <tbody>
+                        <tr>
+                            <td width="30" align="center" bgcolor="#4C91DC" id="micss6">
+                                <div id="micss7" bis_skin_checked="1">#</div>
+                            </td>
+                            <td width="90" align="left" id="micss6" bgcolor="#4C91DC">
+                                <div id="micss7" bis_skin_checked="1">&nbsp;&nbsp;INDICATIVO</div>
+                            </td>
+                            <td width="60" align="center" bgcolor="#4C91DC" id="micss6">
+                                <div id="micss7" bis_skin_checked="1">CONTACTOS</div>
+                            </td>
+                        </tr>
                         @php
-                        $i = 1;
+                        $i = 0;
                         @endphp
                         @foreach ($fonia as $fon)
-                        <tr>
-                            <td>{{ $i }}</td>
-                            <td>
-                                <a
-                                    href="{{ route('indicativo.search', ['usuario'=>$fon->participante , 'top'=> 'fonia']) }}">{{
-                                    $fon->participante }}</a>
+                        <tr align="center" bgcolor="#ECF5FF">
+                            <td id="micss6" bgcolor="#4C91DC">
+                                <div id="micss7" bis_skin_checked="1">{{++$i}}</div>
                             </td>
-                            <td>{{ $fon->cantidad }}</td>
+                            <td align="left" id="micss6">&nbsp;<a
+                                    href="{{ route('indicativo.search', ['usuario' => $fon->participante, 'top' => 'ft8']) }}">{{
+                                    $fon->participante }}</a></td>
+                            <td id="micss6"><b>{{ $fon->cantidad }}</b></td>
                         </tr>
                         @endforeach
+
                     </tbody>
                 </table>
             </div>
             <div class="col-md-3 mx-auto">
-                <center><label>TOP 100 FT8</label></center>
-                <table class="table table-primary table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Usuario</th>
-                            <th>Contactos</th>
-                        </tr>
-                    </thead>
+                <div class="d-block mx-auto mt-3" id="micss11" bis_skin_checked="1"><center>TOP 100 FT8</center></div>
+                <table style="width: 100%;" id="micss9" border="2" bordercolor="#000000">
                     <tbody>
+                        <tr>
+                            <td width="30" align="center" bgcolor="#4C91DC" id="micss6">
+                                <div id="micss7" bis_skin_checked="1">#</div>
+                            </td>
+                            <td width="90" align="left" id="micss6" bgcolor="#4C91DC">
+                                <div id="micss7" bis_skin_checked="1">&nbsp;&nbsp;INDICATIVO</div>
+                            </td>
+                            <td width="60" align="center" bgcolor="#4C91DC" id="micss6">
+                                <div id="micss7" bis_skin_checked="1">CONTACTOS</div>
+                            </td>
+                        </tr>
                         @php
-                        $i = 1;
+                        $i = 0;
                         @endphp
                         @foreach ($ft8 as $fon)
-                        <tr>
-                            <td>{{ $i }}</td>
-                            <td>
-                                <a
-                                    href="{{ route('indicativo.search', ['usuario'=>$fon->participante , 'top'=> 'ft8']) }}">{{
-                                    $fon->participante }}</a>
+                        <tr align="center" bgcolor="#ECF5FF">
+                            <td id="micss6" bgcolor="#4C91DC">
+                                <div id="micss7" bis_skin_checked="1">{{++$i}}</div>
                             </td>
-                            <td>{{ $fon->cantidad }}</td>
+                            <td align="left" id="micss6">&nbsp;<a
+                                    href="{{ route('indicativo.search', ['usuario' => $fon->participante, 'top' => 'ft8']) }}">{{
+                                    $fon->participante }}</a></td>
+                            <td id="micss6"><b>{{ $fon->cantidad }}</b></td>
                         </tr>
                         @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -253,6 +271,7 @@
                 </table>
             </div>-->
         </div>
+
     </div>
     @else
     <div class="alert alert-secondary" role="alert">
@@ -273,9 +292,11 @@
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-twitter h3"></i></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-twitter h3"></i></a>
+            </li>
             <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-instagram h3"></i></a></li>
-            <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-facebook h3"></i></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-facebook h3"></i></a>
+            </li>
         </ul>
     </footer>
 </body>

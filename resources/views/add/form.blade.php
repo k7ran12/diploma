@@ -23,9 +23,9 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <label>Banda</label>
+                <label>Modo</label>
                 <select required name="modo" class="form-select" aria-label="Default select example">
-                    <option>Elija un banda</option>
+                    <option>Elija un Modo</option>
                     <option value="SSB">SSB</option>
                     <option value="FT8">FT8</option>
                 </select>
